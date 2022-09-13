@@ -12,7 +12,7 @@ const createUser = async (req, res = express.response) => {
 
         //Si usuario existe entonces Status 400
         if(user){
-            res.status(400).json({
+            return res.status(400).json({
                 ok: false,
                 msg: 'Un usuario ya existe con ese correo'
             });
@@ -57,7 +57,7 @@ const loginUser = async(req, res = express.response) => {
 
         //Si usuario no existe entonces Status 400
         if(!user){
-            res.status(400).json({
+            return res.status(400).json({
                 ok: false,
                 msg: 'Un usuario no existe con ese correo'
             });
@@ -75,8 +75,7 @@ const loginUser = async(req, res = express.response) => {
 
         //Generate JWT
         const token = await generateJWT(user.id, user.name);
-        console.log(token);
-        //TODO: arreglar Token request
+        
 
         res.status(201).json({
             ok: true,
